@@ -3,7 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 // Add services to the container.
+
+const string corsPolicy = "_corsPolicy";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicy,
+        policy => policy.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader());
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,7 +33,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors(corsPolicy);
 
 app.UseAuthorization();
 

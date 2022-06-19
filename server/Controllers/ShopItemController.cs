@@ -22,7 +22,7 @@ public class ShopItemController : ControllerBase
     {
         _db.ShopItems.Add(shopItem);
         _db.SaveChanges();
-        return Ok();
+        return Ok(shopItem);
     }
 
     [HttpPut("update")]
@@ -30,6 +30,6 @@ public class ShopItemController : ControllerBase
     {
         _db.ShopItems.Update(shopItem);
         _db.SaveChanges();
-        return Ok();
+        return Ok(shopItem);
     }
 }

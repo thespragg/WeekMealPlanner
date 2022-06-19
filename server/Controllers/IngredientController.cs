@@ -20,9 +20,10 @@ public class IngredientController : ControllerBase
     [HttpPost("create")]
     public IActionResult Post(Ingredient ingredient)
     {
+        ingredient.Item = _db.ShopItems.FirstOrDefault(x=>x.Id == ingredient.Item.Id)!;
         _db.Ingredients.Add(ingredient);
         _db.SaveChanges();
-        return Ok();
+        return Ok(ingredient);
     }
 
     [HttpPut("update")]
@@ -30,6 +31,6 @@ public class IngredientController : ControllerBase
     {
         _db.Update(ingredient);
         _db.SaveChanges();
-        return Ok();
+        return Ok(ingredient);
     }
 }

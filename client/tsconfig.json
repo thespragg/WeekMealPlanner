@@ -8,6 +8,9 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
