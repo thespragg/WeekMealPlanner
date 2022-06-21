@@ -1,22 +1,42 @@
 <template>
     <NCard size="small" title="Shopping List">
-        <p v-for="item in shoppingList" :key="item.item.name">{{ item.quantity }}x {{ item.item.name }}</p>
+        <!-- <p v-for="item in shoppingList" :key="item.item.name">{{ item.quantity }}x {{ item.item.name }}</p> -->
+        <p v-for="recipe in recipes" :key="recipe">{{recipe}}</p>
     </NCard>
 </template>
 
 <script setup lang="ts">
-import { shop } from '@/api/shop';
-import { IRecipe } from '@/types/IRecipe';
-import { IShopItem } from '@/types/IShopItem';
+import { useMealStore } from '@/store/mealStore';
+import { IDayPlan } from '@/types/IDayPlan';
 import { IShoppingListItem } from '@/types/IShoppingListItem';
+import { IWeekPlan } from '@/types/IWeekPlan';
 import { NCard } from "naive-ui"
-import { computed, onBeforeMount, onUpdated, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
-const props = defineProps<{ recipes: IRecipe[] }>();
+const mealStore = useMealStore();
+const recipes = computed<{
+    [name: string]: number
+}>(() => {
+    const dayKeys = ["saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday"] as (keyof IWeekPlan)[];
+    const mealKeys = ["lunch", "dinner"] as (keyof IDayPlan)[];
+
+    const res: {
+        [name: string]: number
+    } = {}
+    for (const day of dayKeys) {
+        for (const meal of mealKeys) {
+            const recipe = mealStore.plan[day][meal];
+            if (!recipe) continue;
+            if (res[recipe]) res[recipe]++;
+            else res[recipe] = 1;
+        }
+    }
+    return res;
+})
 
 const shoppingList = ref<IShoppingListItem[]>([]);
 const calculateShoppingList = () => {
-    const allIngredients = props.recipes.map(x => x.ingredients).flat();
+    const allIngredients = [] as any[]; //props.recipes.map(x => x.ingredients).flat();
     const res: IShoppingListItem[] = [];
 
     for (const ingredient of allIngredients) {

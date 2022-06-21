@@ -19,5 +19,10 @@ export const useRecipeStore = defineStore("recipeStore", {
             this.recipes = await recipes.get();
             this.recipeNames = await recipes.names();
         },
+        async create(newRecipe: IRecipe){
+            const savedRecipe = await recipes.create(newRecipe);
+            this.recipes.push(newRecipe);
+            this.recipeNames[savedRecipe.id] = savedRecipe.name;
+        }
     },
 });

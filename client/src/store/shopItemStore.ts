@@ -19,6 +19,16 @@ export const useShopItemStore = defineStore("shopItemStore", {
             const index = state.shop.findIndex(x => x.id == id);
             if (index === -1) return null;
             return state.shop[index];
+        },
+        async create(newItem: IShopItem){
+            const savedItem = await shop.create(newItem);;
+            this.shop.push(savedItem);
         }
+    },
+    getters: {
+        shopItemSelections: (state: State) => state.shop.map(x => ({
+            label: x.name,
+            value: x.id
+        }))
     }
 });
