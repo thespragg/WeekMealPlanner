@@ -12,8 +12,10 @@ export const useShopItemStore = defineStore("shopItemStore", {
     }),
 
     actions: {
-        getItems: async (state: State) => state.shop = await shop.get(),
-        byId: (state: State, id: number): IShopItem | null => {
+        async getItems() {
+            this.shop = await shop.get()
+        },
+        byId(state: State, id: number): IShopItem | null {
             const index = state.shop.findIndex(x => x.id == id);
             if (index === -1) return null;
             return state.shop[index];

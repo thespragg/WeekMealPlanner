@@ -1,5 +1,4 @@
 import { IDayPlan } from "@/types/IDayPlan";
-import { IRecipe } from "@/types/IRecipe";
 import { IWeekPlan } from "@/types/IWeekPlan";
 import { defineStore } from "pinia";
 
@@ -7,7 +6,7 @@ type State = {
     plan: IWeekPlan
 }
 
-export const useIngredientStore = defineStore("ingredientStore", {
+export const useMealStore = defineStore("mealStore", {
     state: (): State => ({
         plan: {
             monday: {

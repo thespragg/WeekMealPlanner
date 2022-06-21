@@ -8,16 +8,16 @@ type State = {
     recipeNames: IRecipeList
 }
 
-export const useIngredientStore = defineStore("ingredientStore", {
+export const useRecipeStore = defineStore("recipeStore", {
     state: (): State => ({
         recipes: [],
         recipeNames: {}
     }),
 
     actions: {
-        getRecipes: async (state: State) => {
-            state.recipes = await recipes.get();
-            state.recipeNames = await recipes.names();
+        async getRecipes() {
+            this.recipes = await recipes.get();
+            this.recipeNames = await recipes.names();
         },
     },
 });

@@ -17,92 +17,65 @@
                   <tr>
                     <td>Saturday</td>
                     <td>
-                      <NButton v-if="!mealPlan.saturday.lunch" @click="toggleRecipeModal('saturday', 'lunch')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.saturday.lunch] }}</p>
+                      <MealSelector day="saturday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.saturday.dinner" @click="toggleRecipeModal('saturday', 'dinner')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.saturday.dinner] }}</p>
+                      <MealSelector day="saturday" meal="dinner" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                   <tr>
                     <td>Sunday</td>
                     <td>
-                      <NButton v-if="!mealPlan.sunday.lunch" @click="toggleRecipeModal('sunday', 'lunch')">Choose Recipe
-                      </NButton>
-                      <p v-else>{{ recipeList![mealPlan.sunday.lunch] }}</p>
+                      <MealSelector day="sunday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.sunday.dinner" @click="toggleRecipeModal('sunday', 'dinner')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.sunday.dinner] }}</p>
+                      <MealSelector day="sunday" meal="dinner" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                   <tr>
                     <td>Monday</td>
                     <td>
-                      <NButton v-if="!mealPlan.monday.lunch" @click="toggleRecipeModal('monday', 'lunch')">Choose Recipe
-                      </NButton>
-                      <p v-else>{{ recipeList![mealPlan.monday.lunch] }}</p>
+                      <MealSelector day="monday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.monday.dinner" @click="toggleRecipeModal('monday', 'dinner')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.monday.dinner] }}</p>
+                      <MealSelector day="monday" meal="dinner" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                   <tr>
                     <td>Tuesday</td>
                     <td>
-                      <NButton v-if="!mealPlan.tuesday.lunch" @click="toggleRecipeModal('tuesday', 'lunch')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.tuesday.lunch] }}</p>
+                      <MealSelector day="tuesday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.tuesday.dinner" @click="toggleRecipeModal('tuesday', 'dinner')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.tuesday.dinner] }}</p>
+                      <MealSelector day="tuesday" meal="dinner" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                   <tr>
                     <td>Wednesday</td>
                     <td>
-                      <NButton v-if="!mealPlan.wednesday.lunch" @click="toggleRecipeModal('wednesday', 'lunch')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.wednesday.lunch] }}</p>
+                      <MealSelector day="wednesday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.wednesday.dinner" @click="toggleRecipeModal('wednesday', 'dinner')">
-                        Choose Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.wednesday.dinner] }}</p>
+                      <MealSelector day="wednesday" meal="dinner"
+                        @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                   <tr>
                     <td>Thursday</td>
                     <td>
-                      <NButton v-if="!mealPlan.thursday.lunch" @click="toggleRecipeModal('thursday', 'lunch')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.thursday.lunch] }}</p>
+                      <MealSelector day="thursday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.thursday.dinner" @click="toggleRecipeModal('thursday', 'dinner')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.thursday.dinner] }}</p>
+                      <MealSelector day="thursday" meal="dinner" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                   <tr>
                     <td>Friday</td>
                     <td>
-                      <NButton v-if="!mealPlan.friday.lunch" @click="toggleRecipeModal('friday', 'lunch')">Choose Recipe
-                      </NButton>
-                      <p v-else>{{ recipeList![mealPlan.friday.lunch] }}</p>
+                      <MealSelector day="friday" meal="lunch" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                     <td>
-                      <NButton v-if="!mealPlan.friday.dinner" @click="toggleRecipeModal('friday', 'dinner')">Choose
-                        Recipe</NButton>
-                      <p v-else>{{ recipeList![mealPlan.friday.dinner] }}</p>
+                      <MealSelector day="friday" meal="dinner" @select="toggleRecipeModal($event.day, $event.meal)" />
                     </td>
                   </tr>
                 </tbody>
@@ -148,6 +121,8 @@
 
 <script setup lang="ts">
 import { NConfigProvider, darkTheme, GlobalTheme, NMessageProvider, NCard, NGrid, NLayout, NGridItem, NTable, NButton, NModal } from "naive-ui"
+import MealSelector from "@/components/MealSelector.vue";
+
 import NewRecipe from "@/components/NewRecipe.vue"
 import { onBeforeMount, ref } from "vue";
 import { IWeekPlan } from "@/types/IWeekPlan";
@@ -157,21 +132,18 @@ import { IDayPlan } from "./types/IDayPlan";
 import { IRecipe } from "./types/IRecipe";
 import ShoppingList from "@/components/ShoppingList.vue"
 
+import { useMealStore } from "@/store/mealStore"
+import { useRecipeStore } from "./store/recipeStore";
+
 const theme = ref<GlobalTheme | null>(darkTheme);
 
-const mealPlan = ref<IWeekPlan>({
-  monday: {},
-  tuesday: {},
-  wednesday: {},
-  thursday: {},
-  friday: {},
-  saturday: {},
-  sunday: {}
-})
+const mealStore = useMealStore();
+const recipeStore = useRecipeStore();
 
 const recipeList = ref<IRecipeList | null>(null);
 
 onBeforeMount(async () => {
+  await recipeStore.getRecipes();
   recipeList.value = await recipes.names();
 })
 
@@ -187,7 +159,7 @@ const toggleRecipeModal = (day: string, meal: string) => {
 
 const chosenRecipes = ref<IRecipe[]>([]);
 const selectRecipe = async (key: number) => {
-  mealPlan.value[choosingDay.value as keyof IWeekPlan][choosingMeal.value as keyof IDayPlan] = key;
+  mealStore.plan[choosingDay.value as keyof IWeekPlan][choosingMeal.value as keyof IDayPlan] = key;
   choosingDay.value = "";
   choosingMeal.value = "";
   showRecipeModal.value = false;
@@ -196,8 +168,8 @@ const selectRecipe = async (key: number) => {
 
 const updateRecipes = async () => {
   chosenRecipes.value = []
-  for (const dayKey of Object.keys(mealPlan.value)) {
-    const day = mealPlan.value[dayKey as keyof IWeekPlan];
+  for (const dayKey of Object.keys(mealStore.plan)) {
+    const day = mealStore.plan[dayKey as keyof IWeekPlan];
     for (const key of Object.keys(day)) {
       const recipe = day[key as keyof IDayPlan];
       if (!recipe) continue;
