@@ -1,7 +1,6 @@
-import { IShopItem } from "./IShopItem";
-
 export interface IShoppingListItem {
-    quantity: number,
-    used: number,
-    item: IShopItem
+  quantity: number;
+  used: number;
+  item: string;
+  unit: string;
 }

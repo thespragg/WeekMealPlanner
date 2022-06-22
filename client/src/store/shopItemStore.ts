@@ -23,6 +23,10 @@ export const useShopItemStore = defineStore("shopItemStore", {
         async create(newItem: IShopItem){
             const savedItem = await shop.create(newItem);;
             this.shop.push(savedItem);
+        },
+        getPrice(name:string){
+            const item = this.shop.find(x=>x.name == name);
+            return item?.price
         }
     },
     getters: {

@@ -23,6 +23,9 @@ export const useRecipeStore = defineStore("recipeStore", {
             const savedRecipe = await recipes.create(newRecipe);
             this.recipes.push(newRecipe);
             this.recipeNames[savedRecipe.id] = savedRecipe.name;
+        },
+        byName(name:string){
+            return this.recipes.find(x=>x.name == name);
         }
     },
 });
